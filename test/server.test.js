@@ -35,6 +35,12 @@ describe("webhook server", () => {
     applySizeLabel.mockResolvedValue(undefined);
   });
 
+  test("GET / is 200 (host health check)", async () => {
+    const res = await request(server).get("/");
+    expect(res.status).toBe(200);
+    expect(res.text).toBe("ok\n");
+  });
+
   async function postEvent(eventName, payload, opts = {}) {
     const body = opts.raw ?? JSON.stringify(payload);
     const sig = Object.prototype.hasOwnProperty.call(opts, "signature")

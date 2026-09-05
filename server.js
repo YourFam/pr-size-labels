@@ -112,6 +112,11 @@ async function createAppServer(options = {}) {
       const url = new URL(req.url || "/", "http://localhost");
       const pathname = normalizePath(url.pathname);
 
+      if (req.method === "GET" && pathname === "/") {
+        res.writeHead(200, { "content-type": "text/plain" }).end("ok\n");
+        return;
+      }
+
       if (req.method === "POST" && pathname === webhooksPath) {
         const raw = await readBody(req);
         const signature = req.headers["x-hub-signature-256"];
