@@ -1,0 +1,22 @@
+{
+  "name": "pr-size-labels",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GitHub App that labels pull requests size/XS through size/XL from webhook additions and deletions.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
