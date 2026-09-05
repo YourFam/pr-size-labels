@@ -143,4 +143,24 @@ describe("webhook server", () => {
     expect(res.status).toBe(200);
     expect(applySizeLabel).not.toHaveBeenCalled();
   });
+
+  test.each([
+    ["purchased"],
+    ["cancelled"],
+    ["new_purchase"],
+    ["changed"],
+    ["removed"],
+    ["free_trial"],
+  ])("marketplace_purchase %s → 200, empty handler, no labels", async (action) => {
+    const res = await postEvent("marketplace_purchase", { action });
+    expect(res.status).toBe(200);
+    expect(res.text).toBe("ok\n");
+    expect(applySizeLabel).not.toHaveBeenCalled();
+  });
+
+  test("marketplace_purchase with empty body object → 200", async () => {
+    const res = await postEvent("marketplace_purchase", {});
+    expect(res.status).toBe(200);
+    expect(applySizeLabel).not.toHaveBeenCalled();
+  });
 });

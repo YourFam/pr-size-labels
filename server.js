@@ -73,11 +73,17 @@ async function handlePullRequest(context) {
   });
 }
 
+async function handleMarketplace() {
+  // Free listing: acknowledge plan-change hooks. No billing, no seats.
+}
+
 function appFn(app) {
   app.on(
     ["pull_request.opened", "pull_request.synchronize", "pull_request.reopened"],
     handlePullRequest
   );
+  // GitHub requires Marketplace plan-change deliveries on App listings, even when free.
+  app.on("marketplace_purchase", handleMarketplace);
 }
 
 async function createAppServer(options = {}) {
